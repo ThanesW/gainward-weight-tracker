@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  /* Light mode palette */
+  --color-cream: #FBF6EE;
+  --color-cream-soft: #F3ECDD;
+  --color-ink: #2B2118;
+  --color-ink-soft: #5A4F42;
+  --color-clay: #C2622D;
+  --color-clay-dark: #A14E22;
+  --color-moss: #5C7B52;
+  --color-moss-dark: #46603F;
+  --color-gold: #D4A024;
+  --color-line: #E4DAC6;
+
+  /* Dark mode palette */
+  --color-ink-dark-bg: #1A1510;
+  --color-ink-dark-surface: #241E16;
+  --color-cream-dark-text: #F3ECDD;
+  --color-line-dark: #3A3023;
+
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+
+  --radius-card: 1.25rem;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+.dark body {
+  background-color: var(--color-ink-dark-bg);
+  color: var(--color-cream-dark-text);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Custom scrollbar - subtle */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-line-dark);
+}
+
+/* Smooth focus ring, accessible */
+:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Sparkline draw-in animation for the signature motif */
+@keyframes draw-line {
+  from { stroke-dashoffset: 240; }
+  to { stroke-dashoffset: 0; }
+}
+.sparkline-path {
+  stroke-dasharray: 240;
+  animation: draw-line 1.1s ease-out forwards;
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise-in {
+  animation: rise-in 0.35s ease-out forwards;
+}
