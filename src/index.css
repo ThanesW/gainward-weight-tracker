@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* ===== Color — light mode ===== */
+  /* Light mode palette */
   --color-cream: #FBF6EE;
   --color-cream-soft: #F3ECDD;
   --color-ink: #2B2118;
@@ -13,95 +13,19 @@
   --color-gold: #D4A024;
   --color-line: #E4DAC6;
 
-  /* ===== Color — dark mode ===== */
+  /* Dark mode palette */
   --color-ink-dark-bg: #1A1510;
   --color-ink-dark-surface: #241E16;
   --color-cream-dark-text: #F3ECDD;
   --color-line-dark: #3A3023;
 
-  /* ===== Mos mode ===== */
-  --color-mos-bg-start: #050000;
-  --color-mos-bg-mid: #480979;
-  --color-mos-bg-end: #c7a8ff;
-
-  --color-mos-text: #ffffff;
-  --color-mos-line: rgba(255,255,255,0.15);
-
-
-  /* ===== Type ===== */
   --font-display: "Fraunces", "Georgia", serif;
   --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
 
-  /* A deliberate scale (1.2 ratio) rather than default browser sizing.
-     Tighter at small sizes for density, more generous tracking at display
-     sizes so the serif doesn't feel cramped. */
-  --text-xs: 0.75rem;
-  --text-xs--line-height: 1.4;
-  --text-sm: 0.875rem;
-  --text-sm--line-height: 1.5;
-  --text-base: 1rem;
-  --text-base--line-height: 1.6;
-  --text-lg: 1.125rem;
-  --text-lg--line-height: 1.5;
-  --text-xl: 1.375rem;
-  --text-xl--line-height: 1.3;
-  --text-2xl: 1.75rem;
-  --text-2xl--line-height: 1.2;
-  --text-3xl: 2.25rem;
-  --text-3xl--line-height: 1.1;
-  --text-4xl: 2.875rem;
-  --text-4xl--line-height: 1.05;
-
-  /* ===== Radius ===== */
   --radius-card: 1.25rem;
-  --radius-control: 0.875rem;
-  --radius-pill: 999px;
-
-  /* ===== Motion =====
-     A gentle, slightly-overshooting ease for anything that "arrives"
-     (cards, sheets), and a crisp ease for anything that just toggles
-     (hover/press states). Named so components can reach for intent,
-     not a raw bezier. */
-  --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-snap: cubic-bezier(0.4, 0, 0.2, 1);
-  --duration-fast: 120ms;
-  --duration-base: 220ms;
-  --duration-slow: 420ms;
-
-  /* ===== Shadow =====
-     Warm, ink-tinted shadows instead of pure black — pure black shadows
-     read as cold/generic against a cream background. */
-  --shadow-color: 38 25% 12%;
-  --shadow-sm: 0 1px 2px hsl(var(--shadow-color) / 0.06);
-  --shadow-card: 0 1px 3px hsl(var(--shadow-color) / 0.06),
-    0 8px 24px -8px hsl(var(--shadow-color) / 0.10);
-  --shadow-lift: 0 4px 8px hsl(var(--shadow-color) / 0.08),
-    0 16px 40px -12px hsl(var(--shadow-color) / 0.16);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
-
-@custom-variant mos (&:where(.mos, .mos *));
-
-/* ============================================================
-   Base
-   ============================================================ */
-
-* {
-  border-color: var(--color-line);
-}
-.dark * {
-  border-color: var(--color-line-dark);
-}
-.mos * {
-  border-color: var(--color-mos-line);
-}
-
-html {
-  height: 100%;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
 
 html, body, #root {
   height: 100%;
@@ -109,17 +33,10 @@ html, body, #root {
 
 body {
   font-family: var(--font-body);
-  font-size: var(--text-base);
-  line-height: var(--text-base--line-height);
   background-color: var(--color-cream);
   color: var(--color-ink);
-  letter-spacing: -0.005em;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: none;
-  transition: background-color var(--duration-base) var(--ease-snap),
-    color var(--duration-base) var(--ease-snap);
 }
 
 .dark body {
@@ -127,167 +44,52 @@ body {
   color: var(--color-cream-dark-text);
 }
 
-.mos body {
-  background: linear-gradient(
-    135deg,
-    #050000 0%,
-    #480979 47%,
-    #c7a8ff 100%
-  );
-
-  background-attachment: fixed;
-  color: var(--color-mos-text);
-}
-
-/* Headings inherit the display face by default; dial in tighter tracking
-   at larger sizes, since serif display faces open up visually at size. */
-h1, h2, h3, h4 {
-  font-family: var(--font-display);
-  letter-spacing: -0.015em;
-  font-weight: 600;
-}
-
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.015em;
 }
 
-/* Numerals (weight readouts, stats, dates) should not shift width as
-   digits change, and should align crisply in tables/grids. Apply this
-   wherever the display face is rendering a number. */
-.font-display,
-.tabular-nums {
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1, "lnum" 1;
-}
-
-/* ============================================================
-   Selection & focus
-   ============================================================ */
-
-::selection {
-  background-color: color-mix(in srgb, var(--color-clay) 25%, transparent);
-  color: var(--color-ink);
-}
-.dark ::selection {
-  background-color: color-mix(in srgb, var(--color-clay) 35%, transparent);
-  color: var(--color-cream-dark-text);
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-clay);
-  outline-offset: 2px;
-  border-radius: 4px;
-  transition: outline-offset var(--duration-fast) var(--ease-snap);
-}
-
-/* ============================================================
-   Scrollbar — subtle on desktop, native (and out of the way) on touch
-   ============================================================ */
-
+/* Custom scrollbar - subtle */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar-track {
-  background: transparent;
-}
 ::-webkit-scrollbar-thumb {
   background: var(--color-line);
-  border-radius: var(--radius-pill);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--color-line) 70%, var(--color-ink-soft) 30%);
+  border-radius: 999px;
 }
 .dark ::-webkit-scrollbar-thumb {
   background: var(--color-line-dark);
 }
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--color-line-dark) 70%, var(--color-cream-dark-text) 30%);
+
+/* Smooth focus ring, accessible */
+:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
-
-/* ============================================================
-   Touch & mobile refinements
-   ============================================================ */
-
-@media (hover: none) and (pointer: coarse) {
-  /* Every tappable control gets a comfortable minimum hit area on touch
-     devices, without needing to touch component markup. */
-  button, a, [role="button"], input, select, textarea {
-    min-height: 44px;
-  }
-
-  /* Thinner scrollbars read as desktop-only chrome; let touch scrolling
-     stay gestural and unobtrusive. */
-  ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
-}
-
-/* Inputs at 16px+ prevent iOS Safari's automatic zoom-on-focus. */
-input, select, textarea {
-  font-size: max(var(--text-base), 16px);
-}
-
-/* ============================================================
-   Motion
-   ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
   }
 }
 
-/* Sparkline draw-in for the weight trend line — slightly slower and with
-   the "arrive" ease so the line feels drawn, not snapped into place. */
+/* Sparkline draw-in animation for the signature motif */
 @keyframes draw-line {
   from { stroke-dashoffset: 240; }
   to { stroke-dashoffset: 0; }
 }
 .sparkline-path {
   stroke-dasharray: 240;
-  animation: draw-line 1.3s var(--ease-arrive) forwards;
+  animation: draw-line 1.1s ease-out forwards;
 }
 
-/* Generic entrance for cards/sheets/list rows as they mount. */
 @keyframes rise-in {
-  from { opacity: 0; transform: translateY(8px) scale(0.99); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .rise-in {
-  animation: rise-in var(--duration-slow) var(--ease-arrive) forwards;
-}
-
-/* Soft fade, for content swaps that shouldn't also shift position
-   (e.g. tab panel changes, filtered list updates). */
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-.fade-in {
-  animation: fade-in var(--duration-base) var(--ease-snap) forwards;
-}
-
-/* Gentle upward pulse for a positive number changing (e.g. weight gain
-   logged) — reaches for the brand's "gains are good" stance without
-   relying on color alone. */
-@keyframes pop-positive {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.06); }
-  100% { transform: scale(1); }
-}
-.pop-positive {
-  animation: pop-positive var(--duration-slow) var(--ease-arrive);
-}
-
-/* Stagger helper: pair with `.rise-in` on a list's children and set
-   `--stagger-index` inline (style={{ '--stagger-index': i }}) to fan
-   entrances out instead of having every row arrive in lockstep. */
-.rise-in[style*="--stagger-index"] {
-  animation-delay: calc(var(--stagger-index, 0) * 40ms);
+  animation: rise-in 0.35s ease-out forwards;
 }

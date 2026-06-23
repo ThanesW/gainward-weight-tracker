@@ -12,7 +12,6 @@ const ICONS = {
       />
     </svg>
   ),
-
   dark: (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
@@ -23,122 +22,35 @@ const ICONS = {
       />
     </svg>
   ),
-
   system: (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect
-        x="3"
-        y="4.5"
-        width="18"
-        height="12"
-        rx="1.5"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
-      <path
-        d="M8.5 20h7M12 16.5V20"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  ),
-
-  mos: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="mosGradient" x1="0" x2="1">
-          <stop offset="0%" stopColor="currentColor" />
-          <stop offset="100%" stopColor="currentColor" />
-        </linearGradient>
-      </defs>
-
-      <circle
-        cx="12"
-        cy="12"
-        r="9"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
-
-      <path
-        d="M5 15c4-6 10-6 14 0"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-
-      <circle
-        cx="12"
-        cy="9"
-        r="2"
-        fill="currentColor"
-      />
+      <rect x="3" y="4.5" width="18" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M8.5 20h7M12 16.5V20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   ),
 };
 
-
-const ORDER = [
-  'system',
-  'light',
-  'dark',
-  'mos'
-];
-
-
-const LABELS = {
-  system: 'System theme',
-  light: 'Light theme',
-  dark: 'Dark theme',
-  mos: 'Mos mode'
-};
-
+const ORDER = ['system', 'light', 'dark'];
+const LABELS = { system: 'System theme', light: 'Light theme', dark: 'Dark theme' };
 
 export default function ThemeToggle() {
-
   const { theme, setTheme } = useTheme();
 
-
   const handleClick = () => {
-
     const idx = ORDER.indexOf(theme);
-
-    const next = ORDER[
-      (idx + 1) % ORDER.length
-    ];
-
+    const next = ORDER[(idx + 1) % ORDER.length];
     setTheme(next);
-
   };
 
-
   return (
-
     <button
       type="button"
       onClick={handleClick}
       aria-label={`Theme: ${LABELS[theme]}. Tap to change.`}
       title={LABELS[theme]}
-      className="
-        p-2
-        rounded-lg
-        text-ink-soft
-        hover:bg-cream-soft
-
-        dark:text-cream-dark-text
-        dark:hover:bg-ink-dark-surface
-
-        mos:text-white
-        mos:hover:bg-white/10
-
-        transition-colors
-      "
+      className="p-2 rounded-lg text-ink-soft hover:bg-cream-soft dark:text-cream-dark-text dark:hover:bg-ink-dark-surface transition-colors"
     >
-
       {ICONS[theme]}
-
     </button>
-
   );
 }
