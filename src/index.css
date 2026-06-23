@@ -33,10 +33,25 @@ html, body, #root {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-cream);
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(194, 98, 45, 0.12),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(212, 160, 36, 0.12),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #FBF6EE 0%,
+      #F3ECDD 100%
+    );
+
   color: var(--color-ink);
-  -webkit-tap-highlight-color: transparent;
-  overscroll-behavior-y: none;
 }
 
 .dark body {
