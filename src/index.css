@@ -19,6 +19,15 @@
   --color-cream-dark-text: #F3ECDD;
   --color-line-dark: #3A3023;
 
+  /* ===== Mos mode ===== */
+  --color-mos-bg-start: #050000;
+  --color-mos-bg-mid: #480979;
+  --color-mos-bg-end: #c7a8ff;
+
+  --color-mos-text: #ffffff;
+  --color-mos-line: rgba(255,255,255,0.15);
+
+
   /* ===== Type ===== */
   --font-display: "Fraunces", "Georgia", serif;
   --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
@@ -72,6 +81,8 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@custom-variant mos (&:where(.mos, .mos *));
+
 /* ============================================================
    Base
    ============================================================ */
@@ -81,6 +92,9 @@
 }
 .dark * {
   border-color: var(--color-line-dark);
+}
+.mos * {
+  border-color: var(--color-mos-line);
 }
 
 html {
@@ -111,6 +125,18 @@ body {
 .dark body {
   background-color: var(--color-ink-dark-bg);
   color: var(--color-cream-dark-text);
+}
+
+.mos body {
+  background: linear-gradient(
+    135deg,
+    #050000 0%,
+    #480979 47%,
+    #c7a8ff 100%
+  );
+
+  background-attachment: fixed;
+  color: var(--color-mos-text);
 }
 
 /* Headings inherit the display face by default; dial in tighter tracking
