@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PageHeader from '../components/common/PageHeader';
-import ThemeToggle from '../components/common/ThemeToggle';
 import FAB from '../components/common/FAB';
 import SquirrelMascot from '../components/common/SquirrelMascot';
 import EmptyState from '../components/common/EmptyState';
@@ -17,7 +16,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-full pb-28">
-      <PageHeader title="Gainward" right={<ThemeToggle />} />
+      <PageHeader title="Gainward" />
 
       <main className="max-w-2xl mx-auto px-4 pt-4 space-y-6">
         <WeightSummaryCard />

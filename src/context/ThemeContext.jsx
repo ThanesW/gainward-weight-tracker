@@ -1,40 +1,20 @@
-import { createContext, useContext, useEffect, useMemo, useState, useCallback } from 'react';
-import { useAppData } from './AppDataContext';
+import { createContext, useContext, useEffect, useMemo } from 'react';
 
 const ThemeContext = createContext(null);
 
+/**
+ * ThemeProvider — theme switching has been removed. The app is permanently
+ * light mode (the cream/clay palette with the food-pattern background).
+ * This still sets up the meta theme-color tag once on mount so the
+ * browser chrome (e.g. Android status bar) matches the page background.
+ */
 export function ThemeProvider({ children }) {
-  const { settings, updateSettings } = useAppData();
-  const [systemPrefersDark, setSystemPrefersDark] = useState(
-    () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-  );
-
   useEffect(() => {
-    const mql = window.matchMedia('(prefers-color-scheme: dark)');
-    const handler = (e) => setSystemPrefersDark(e.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
+    document.documentElement.classList.remove('dark');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#FBF6EE');
   }, []);
 
-  const isDark = useMemo(() => {
-    if (settings.theme === 'dark') return true;
-    if (settings.theme === 'light') return false;
-    return systemPrefersDark;
-  }, [settings.theme, systemPrefersDark]);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', isDark);
-    document
-      .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', isDark ? '#1A1510' : '#FBF6EE');
-  }, [isDark]);
-
-  const setTheme = useCallback((theme) => updateSettings({ theme }), [updateSettings]);
-
-  const value = useMemo(
-    () => ({ isDark, theme: settings.theme, setTheme }),
-    [isDark, settings.theme, setTheme]
-  );
+  const value = useMemo(() => ({ isDark: false, theme: 'light', setTheme: () => {} }), []);
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
