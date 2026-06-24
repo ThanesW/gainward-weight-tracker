@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PageHeader from '../components/common/PageHeader';
 import ThemeToggle from '../components/common/ThemeToggle';
 import FAB from '../components/common/FAB';
+import SquirrelMascot from '../components/common/SquirrelMascot';
 import EmptyState from '../components/common/EmptyState';
 import WeightSummaryCard from '../components/dashboard/WeightSummaryCard';
 import RangeFilterTabs from '../components/dashboard/RangeFilterTabs';
@@ -77,7 +78,7 @@ export default function Dashboard() {
               }
             />
           ) : (
-            <div className="bg-white dark:bg-ink-dark-surface border border-line dark:border-line-dark rounded-card divide-y divide-line dark:divide-line-dark overflow-hidden mb-20">
+            <div className="bg-white dark:bg-ink-dark-surface border border-line dark:border-line-dark rounded-card divide-y divide-line dark:divide-line-dark overflow-hidden mb-32">
               {filteredLogs.map((log) => (
                 <FoodLogListItem key={log.id} log={log} />
               ))}
@@ -87,6 +88,7 @@ export default function Dashboard() {
       </main>
 
       <FAB />
+      <SquirrelMascot />
     </div>
   );
 }
