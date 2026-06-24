@@ -3,10 +3,11 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 /**
  * SquirrelMascot
  *
- * A friendly floating mascot, fixed to the bottom-left corner (the FAB owns
- * bottom-right — see FAB.jsx), that gently bobs and occasionally pops up a
- * speech bubble cheering the person on to eat. Tapping the squirrel shows
- * a new random line immediately and resets the idle timer.
+ * A friendly mascot avatar that sits in the page header's top-right slot
+ * (passed as `right={<SquirrelMascot />}` to PageHeader) and occasionally
+ * pops up a speech bubble below itself, cheering the person on to eat.
+ * Tapping the squirrel shows a new random line immediately and resets the
+ * idle timer.
  *
  * Image: user-provided transparent PNG cutout (public/squirrel-mascot.png),
  * served locally rather than from a remote CDN.
@@ -20,7 +21,7 @@ const CHEER_LINES = [
   'เพิ่มน้ำหนักด้วยกันนะ!',
   'ของอร่อยรอเธออยู่ 🌰',
   'กินเยอะๆ แข็งแรงๆ!',
-  'ไอเอ๋อ',
+  'ถึงเวลามื้อต่อไปยัง?',
 ];
 
 const MASCOT_IMAGE_URL = '/squirrel-mascot.png';
@@ -39,7 +40,7 @@ function pickRandomLine(excludeIndex) {
 
 export default function SquirrelMascot() {
   const [lineIndex, setLineIndex] = useState(0);
-  const [bubbleVisible, setBubbleVisible] = useState(true);
+  const [bubbleVisible, setBubbleVisible] = useState(false);
   const [imageFailed, setImageFailed] = useState(false);
   const hideTimerRef = useRef(null);
   const idleTimerRef = useRef(null);
@@ -70,32 +71,18 @@ export default function SquirrelMascot() {
   };
 
   return (
-    <div
-      className="fixed z-40 Right-4 bottom-[calc(9.5rem+env(safe-area-inset-bottom))] sm:bottom-32
-                 flex flex-col items-start gap-1.5 select-none"
-    >
-      {bubbleVisible && (
-        <div
-          role="status"
-          className="mascot-bubble relative max-w-[10rem] rounded-2xl rounded-bl-sm
-                     bg-white dark:bg-ink-dark-surface border border-line dark:border-line-dark
-                     px-3 py-1.5 shadow-card text-xs font-medium text-ink dark:text-cream-dark-text
-                     ml-1"
-        >
-          {CHEER_LINES[lineIndex]}
-        </div>
-      )}
-
+    <div className="relative select-none">
       <button
         type="button"
         onClick={handleTap}
         aria-label="กระรอกเชียร์ให้กินข้าว แตะเพื่อฟังคำเชียร์อีกครั้ง"
-        className="mascot-bounce-in mascot-bob h-16 w-16 sm:h-20 sm:w-20
-                   flex items-center justify-center bg-transparent
+        className="mascot-bob h-11 w-11 rounded-xl bg-cream-soft dark:bg-ink-dark-surface
+                   border border-line dark:border-line-dark
+                   flex items-center justify-center overflow-hidden
                    transition-transform active:scale-90 hover:scale-105"
       >
         {imageFailed ? (
-          <span className="text-4xl drop-shadow-lg" aria-hidden="true">
+          <span className="text-2xl" aria-hidden="true">
             🐿️
           </span>
         ) : (
@@ -103,12 +90,24 @@ export default function SquirrelMascot() {
             src={MASCOT_IMAGE_URL}
             alt=""
             aria-hidden="true"
-            className="h-full w-full object-contain drop-shadow-lg"
+            className="h-[115%] w-[115%] object-contain object-bottom"
             onError={() => setImageFailed(true)}
             draggable={false}
           />
         )}
       </button>
+
+      {bubbleVisible && (
+        <div
+          role="status"
+          className="mascot-bubble absolute right-0 top-[calc(100%+0.5rem)] z-30
+                     max-w-[10rem] w-max rounded-2xl rounded-tr-sm
+                     bg-white dark:bg-ink-dark-surface border border-line dark:border-line-dark
+                     px-3 py-1.5 shadow-card text-xs font-medium text-ink dark:text-cream-dark-text"
+        >
+          {CHEER_LINES[lineIndex]}
+        </div>
+      )}
     </div>
   );
 }

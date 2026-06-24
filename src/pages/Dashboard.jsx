@@ -16,7 +16,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-full pb-28">
-      <PageHeader title="Gainward" />
+      <PageHeader title="Gainward" right={<SquirrelMascot />} />
 
       <main className="max-w-2xl mx-auto px-4 pt-4 space-y-6">
         <WeightSummaryCard />
@@ -87,7 +87,6 @@ export default function Dashboard() {
       </main>
 
       <FAB />
-      <SquirrelMascot />
     </div>
   );
 }
