@@ -20,7 +20,7 @@ const CHEER_LINES = [
   'เพิ่มน้ำหนักด้วยกันนะ!',
   'ของอร่อยรอเธออยู่ 🌰',
   'กินเยอะๆ แข็งแรงๆ!',
-  'ถึงเวลามื้อต่อไปยัง?',
+  'ไอเอ๋อ',
 ];
 
 const MASCOT_IMAGE_URL = '/squirrel-mascot.png';
@@ -71,7 +71,7 @@ export default function SquirrelMascot() {
 
   return (
     <div
-      className="fixed z-40 left-4 bottom-[calc(9.5rem+env(safe-area-inset-bottom))] sm:bottom-32
+      className="fixed z-40 Right-4 bottom-[calc(9.5rem+env(safe-area-inset-bottom))] sm:bottom-32
                  flex flex-col items-start gap-1.5 select-none"
     >
       {bubbleVisible && (
