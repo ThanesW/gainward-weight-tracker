@@ -14,7 +14,7 @@ function Layout() {
   const hideNav = location.pathname.startsWith('/add') || location.pathname.startsWith('/edit');
 
   return (
-    <div className="min-h-screen bg-cream dark:bg-ink-dark-bg">
+    <div className="min-h-screen">
       <LoadingGate>
         <Routes>
           <Route path="/" element={<Dashboard />} />
