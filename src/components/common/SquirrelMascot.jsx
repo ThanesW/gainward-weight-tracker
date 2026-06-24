@@ -8,8 +8,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
  * speech bubble cheering the person on to eat. Tapping the squirrel shows
  * a new random line immediately and resets the idle timer.
  *
- * Image source: generated via Higgsfield (Z Image model), not a stock or
- * copyrighted asset — safe to reference directly by URL.
+ * Image: user-provided transparent PNG cutout (public/squirrel-mascot.png),
+ * served locally rather than from a remote CDN.
  */
 
 const CHEER_LINES = [
@@ -23,8 +23,7 @@ const CHEER_LINES = [
   'ถึงเวลามื้อต่อไปยัง?',
 ];
 
-const MASCOT_IMAGE_URL =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_3FXMxAAcpL34swNpYj8mG1Xu5EW/hf_20260624_020331_1193ac31-0c38-47a7-9b3f-c3b620edbea5.png';
+const MASCOT_IMAGE_URL = '/squirrel-mascot.png';
 
 const IDLE_INTERVAL_MS = 9000;
 const BUBBLE_VISIBLE_MS = 4200;
@@ -91,13 +90,12 @@ export default function SquirrelMascot() {
         type="button"
         onClick={handleTap}
         aria-label="กระรอกเชียร์ให้กินข้าว แตะเพื่อฟังคำเชียร์อีกครั้ง"
-        className="mascot-bounce-in mascot-bob h-14 w-14 sm:h-16 sm:w-16 rounded-full
-                   bg-cream-soft dark:bg-ink-dark-surface border border-line dark:border-line-dark
-                   shadow-card flex items-center justify-center
+        className="mascot-bounce-in mascot-bob h-16 w-16 sm:h-20 sm:w-20
+                   flex items-center justify-center bg-transparent
                    transition-transform active:scale-90 hover:scale-105"
       >
         {imageFailed ? (
-          <span className="text-2xl" aria-hidden="true">
+          <span className="text-4xl drop-shadow-lg" aria-hidden="true">
             🐿️
           </span>
         ) : (
@@ -105,7 +103,7 @@ export default function SquirrelMascot() {
             src={MASCOT_IMAGE_URL}
             alt=""
             aria-hidden="true"
-            className="h-[85%] w-[85%] object-contain"
+            className="h-full w-full object-contain drop-shadow-lg"
             onError={() => setImageFailed(true)}
             draggable={false}
           />
